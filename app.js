@@ -20,12 +20,12 @@ mailchimp.setConfig({
 
 async function run() {
   const response = await mailchimp.ping.get();
-  //   console.log(response);
+  //   console.log(response);  //Happy chimping
 }
 
 run();
 
-//-------------------
+//-------------------Tapping inputs
 
 app.get("/", (req, res) => {
   res.sendFile(__dirname + "/signup.html");
@@ -42,7 +42,7 @@ app.post("/", (req, res) => {
   const subscribingUser = {
     firstName: fname,
     lastName: lname,
-    email: email
+    email: email,
   };
 
   async function run() {
@@ -62,38 +62,36 @@ app.post("/", (req, res) => {
 
   run();
 
-  //-------------------.checking status
+  res.sendFile(__dirname + "/success.html");
 
-  //   const listId = "YOUR_LIST_ID";
-  //   const email = "prudence.mcvankab@example.com";
-  const subscriberHash = md5(email.toLowerCase());
+  //   //-------------------.checking status    //(Uncommenting below codes is resulting in user not being added to the list and a failure page )
 
-  async function run() {
-    try {
-      const response = await mailchimp.lists.getListMember(
-        listId,
-        subscriberHash
-      );
+  //   const subscriberHash = md5(email.toLowerCase());
 
-      console.log(`This user's subscription status is ${response.status}.`);
-    } catch (e) { 
-      if (e.status === 200) {
-        res.sendFile(__dirname + "/success.html");
-      } else {
-        res.sendFile(__dirname + "/failure.html");
-      }
-    }
-  }
-  run();
+  //   async function run() {
+  //     try {
+  //       const response = await mailchimp.lists.getListMember(
+  //         listId,
+  //         subscriberHash
+  //       );
 
-  //-------------------.
+  //     //   console.log(`This user's subscription status is ${response.status}.`);
+  //     } catch (e) {
+  //       if (e.status === 200) {
+  //         res.sendFile(__dirname + "/success.html");
+  //       } else {
+  //         res.sendFile(__dirname + "/failure.html");
+  //       }
+  //     }
+  //   }
+  //   run();
+
+  //   //-------------------.
 });
 
-
-app.post('/failure', function(req, res) {
-    res.redirect('/');
-})
-
+app.post("/failure", function (req, res) {
+  res.redirect("/");
+});
 
 app.listen(process.env.PORT || 3000, function () {
   console.log("running on port 3000");
