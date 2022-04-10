@@ -14,7 +14,7 @@ app.use(express.static("public"));
 //-------------------Calling API
 
 mailchimp.setConfig({
-  apiKey: "b137bf99633f40b6c16ec896ca156eda-us14",
+  apiKey: "apikey",
   server: "us14",
 });
 
@@ -38,7 +38,7 @@ app.post("/", (req, res) => {
 
   //-------------------Adding user to audience list
 
-  const listId = "da90e60cc9";
+  const listId = "audid";
   const subscribingUser = {
     firstName: fname,
     lastName: lname,
@@ -98,7 +98,7 @@ app.listen(process.env.PORT || 3000, function () {
 });
 
 // api key
-// b137bf99633f40b6c16ec896ca156eda-us14
+// apikey
 
 // audience id
-// da90e60cc9
+// audid
