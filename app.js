@@ -4,6 +4,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const request = require("request");
 const mailchimp = require("@mailchimp/mailchimp_marketing");
+const md5 = require("md5");
 
 const app = express();
 
@@ -13,7 +14,7 @@ app.use(express.static("public"));
 //-------------------Calling API
 
 mailchimp.setConfig({
-  apiKey: "834b43143093e044717e21def5402d2e-us14",
+  apiKey: "b137bf99633f40b6c16ec896ca156eda-us14",
   server: "us14",
 });
 
@@ -37,11 +38,11 @@ app.post("/", (req, res) => {
 
   //-------------------Adding user to audience list
 
-  const listId = "1bb4c7b7b6";
+  const listId = "da90e60cc9";
   const subscribingUser = {
     firstName: fname,
     lastName: lname,
-    email: email,
+    email: email
   };
 
   async function run() {
@@ -63,8 +64,6 @@ app.post("/", (req, res) => {
 
   //-------------------.checking status
 
-  const md5 = require("md5");
-
   //   const listId = "YOUR_LIST_ID";
   //   const email = "prudence.mcvankab@example.com";
   const subscriberHash = md5(email.toLowerCase());
@@ -77,9 +76,9 @@ app.post("/", (req, res) => {
       );
 
       console.log(`This user's subscription status is ${response.status}.`);
-    } catch (e) {
+    } catch (e) { 
       if (e.status === 200) {
-        res.sendFile(__dirname + "/failure.html");
+        res.sendFile(__dirname + "/success.html");
       } else {
         res.sendFile(__dirname + "/failure.html");
       }
@@ -101,7 +100,7 @@ app.listen(process.env.PORT || 3000, function () {
 });
 
 // api key
-// 834b43143093e044717e21def5402d2e-us14
+// b137bf99633f40b6c16ec896ca156eda-us14
 
 // audience id
-// 1bb4c7b7b6
+// da90e60cc9
